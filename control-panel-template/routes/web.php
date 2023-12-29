@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Users\Forms\LoginUser;
+use App\Livewire\Users\Forms\RegisterUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +28,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+// General
+Route::get('/login', LoginUser::class)->name('users.login');
+Route::get('/register', RegisterUser::class)->name('users.register');
+
+
+//
