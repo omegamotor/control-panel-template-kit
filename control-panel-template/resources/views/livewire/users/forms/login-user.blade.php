@@ -7,12 +7,12 @@
             <div class="mb-3">
                 <label for="inputEmail" class="form-label">Email</label>
                 <input wire:model="email" type="email" class="form-control" id="inputEmail" :value="old('email')" required>
-                @error('email') <span>{{ $message }}</span> @enderror
+                @error('email') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="mb-3">
                 <label for="inputPassword" class="form-label">Hasło</label>
                 <input wire:model="password" type="password" class="form-control" id="inputPassword" required>
-                @error('password') <span>{{ $message }}</span> @enderror
+                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
             {{-- <div class="mb-3 form-check">
                 <input wire:model="remember" type="checkbox" class="form-check-input" id="remember">
@@ -22,7 +22,7 @@
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" class="small mx-2">Zapomniałeś hasła?</a>
                 @endif
-                <button type="submit" class="btn btn-primary">zaloguj się</button>
+                <button type="submit" class="btn btn-primary">Zaloguj się</button>
             </div>
         </form>
     </div>

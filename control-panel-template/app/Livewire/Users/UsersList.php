@@ -2,14 +2,20 @@
 
 namespace App\Livewire\Users;
 
+use App\Http\Helpers\passwordGenerator;
 use App\Models\User;
-use Illuminate\Queue\Listener;
+use App\Mail\NewPasswordEmail;
+use App\Models\AppConfigurationEmail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Traits\FilterTrait;
 
 class UsersList extends Component
 {
     use WithPagination;
+    use FilterTrait;
 
     public string $searchBy = '';
     public string $sortBy = 'ASC';
@@ -21,26 +27,56 @@ class UsersList extends Component
         'perPage' => ['except' => 50],
     ];
 
-    protected $listeners = ['refreshList' => 'render'];
-
-    public function refreshList()
-    {
-        $this->refresh();
-    }
+    // For save Filters (Trait Need this)
+    private $filterSaveData = [
+        'sortBy' => 'users_list-sortBy',
+        'perPage' => 'users_list-perPage',
+        'searchBy' => 'users_list-searchBy',
+    ];
+    // --------------------------------------
 
     public function render()
     {
         return view('livewire.users.users-list',[
             'users' => User::where('name', 'LIKE', '%' . $this->searchBy . '%')
-            ->orderBy('name', $this->sortBy)
-            ->paginate($this->perPage)
-            ->withQueryString()
+                ->orderBy('name', $this->sortBy)
+                ->select(['id','name','email'])
+                ->paginate($this->perPage)
+                ->withQueryString()
         ]);
     }
 
-
-    public function test(){
-        dump($this->selectedUsers);
+    public function openModal($user, $type){
+        $this->dispatch($type.'-user-modal-open', user: $user);
     }
 
+    public function sendNewPassword($user){
+        $user = User::find($user['id']);
+
+        if($user){
+            $passwordGenerator = new passwordGenerator(12, 12);
+
+            $newPassword = htmlspecialchars($passwordGenerator->generate());
+            $user->password = Hash::make($newPassword);
+            // $user->save();
+
+            $mailConfig = AppConfigurationEmail::first();
+            dd($mailConfig);
+            if($mailConfig && $mailConfig->active_sending){
+                Mail::to($user->email)->send(new NewPasswordEmail($user, $newPassword));
+            }
+
+            session()->flash('alert-type', 'SUCCESS');
+            session()->flash('message', 'Nowe hasło zostało wysłane na podany email!');
+
+            return redirect()->route('users.list');
+        }
+    }
+
+    // To First Page After Change filters
+    public function updatedPerPage()
+    {$this->gotoPage(1);}
+
+    public function updatedsearchBy()
+    {$this->gotoPage(1);}
 }

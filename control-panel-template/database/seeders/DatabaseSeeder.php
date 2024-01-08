@@ -22,13 +22,18 @@ class DatabaseSeeder extends Seeder
         if (app()->environment('local')) {
             $this->call([
                 // Dev
-                UserSeeder::class,
+                // UserSeeder::class,
             ]);
         }else if (app()->environment('production')){
             $this->call([
                 // Prod
             ]);
         }
+
+        $this->call([
+            // Dev or Prod
+            AppConfigurationEmailSeeder::class,
+        ]);
 
     }
 }

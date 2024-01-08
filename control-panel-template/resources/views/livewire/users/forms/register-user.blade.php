@@ -7,18 +7,18 @@
             <div class="mb-3">
                 <label for="inputName" class="form-label">Nazwa użytkownika</label>
                 <input wire:model="name" type="text" class="form-control" id="inputName" required>
-                @error('name') <span>{{ $message }}</span> @enderror
+                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
             <div class="mb-3">
                 <label for="inputEmail" class="form-label">Email</label>
                 <input wire:model="email" type="email" class="form-control" id="inputEmail" required>
-                @error('email') <span>{{ $message }}</span> @enderror
+                @error('email') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Hasło:</label>
                 <input wire:model="password" type="password" id="password" class="form-control" name="password" required>
-                @error('password') <span>{{ $message }}</span> @enderror
+                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="mb-3">

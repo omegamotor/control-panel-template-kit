@@ -87,10 +87,26 @@
         </a>
     </li>
 
-    <!-- Nav Item - Tables -->
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+            aria-expanded="true" aria-controls="collapsePages">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <span>Ustawienia Aplikacji</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Ogólne:</h6>
+                <a class="collapse-item @if(Route::is('config.email')) active @endif" href="{{route('config.email')}}">
+                    <i class="fa-solid fa-envelope"></i> Mailing
+                </a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Tables -->
+    {{-- <li class="nav-item">
         <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
-    </li>
+    </li> --}}
 </div>
