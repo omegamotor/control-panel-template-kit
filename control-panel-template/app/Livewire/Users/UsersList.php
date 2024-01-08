@@ -58,16 +58,24 @@ class UsersList extends Component
 
             $newPassword = htmlspecialchars($passwordGenerator->generate());
             $user->password = Hash::make($newPassword);
-            // $user->save();
+
 
             $mailConfig = AppConfigurationEmail::first();
-            dd($mailConfig);
+
             if($mailConfig && $mailConfig->active_sending){
+                $user->save();
+
+                session()->flash('alert-type', 'SUCCESS');
+                session()->flash('message', 'Nowe hasło zostało wysłane na podany email!');
+
                 Mail::to($user->email)->send(new NewPasswordEmail($user, $newPassword));
+
+            }else{
+                session()->flash('alert-type', 'DANGER');
+                session()->flash('message', 'Mailing nie został skonfigurowany. Nie można wysłać nowego hasła!');
             }
 
-            session()->flash('alert-type', 'SUCCESS');
-            session()->flash('message', 'Nowe hasło zostało wysłane na podany email!');
+
 
             return redirect()->route('users.list');
         }

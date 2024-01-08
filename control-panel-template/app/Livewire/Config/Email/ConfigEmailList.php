@@ -24,6 +24,7 @@ class ConfigEmailList extends Component
 
     public function mount(){
         $this->conf = AppConfigurationEmail::first();
+        $this->activeSending = $this->conf->active_sending ? true : false;
     }
 
     public function render()

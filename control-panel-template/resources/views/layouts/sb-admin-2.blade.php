@@ -277,7 +277,8 @@
 
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
-                        {{ $slot }}
+                        {{ $slot ?? '' }}
+                        @yield('content')
                     </div>
                     <!-- /.container-fluid -->
 
