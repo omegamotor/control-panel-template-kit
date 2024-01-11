@@ -53,29 +53,4 @@
             </div>
         </form>
     </div>
-
-    {{-- <script>
-        document.addEventListener('livewire:init', function () {
-            Livewire.on('closeModal', function () {
-                let myModal = new bootstrap.Modal(document.getElementById('createUserModal'));
-                myModal.hide();
-
-                let modalBackdrops = $('.modal-backdrop');
-
-                // Iteruj przez znalezione obiekty
-                // modalBackdrops.each(function() {
-                //     // Sprawdź, czy obiekt posiada klasę show
-                //     if ($(this).hasClass('show')) {
-                //         // Usuń klasę show
-                //         $(this).removeClass('show');
-                //     }
-                // });
-                // Znajdź wszystkie obiekty z klasą modal-backdrop, które nie mają atrybutu id
-                let modalBackdropsWithoutId = $('.modal-backdrop:not([id])');
-
-                // Usuń znalezione obiekty
-                modalBackdropsWithoutId.remove();
-            });
-        });
-    </script> --}}
 </div>

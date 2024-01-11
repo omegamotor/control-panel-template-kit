@@ -35,17 +35,6 @@ class UsersList extends Component
     ];
     // --------------------------------------
 
-    public function render()
-    {
-        return view('livewire.users.users-list',[
-            'users' => User::where('name', 'LIKE', '%' . $this->searchBy . '%')
-                ->orderBy('name', $this->sortBy)
-                ->select(['id','name','email'])
-                ->paginate($this->perPage)
-                ->withQueryString()
-        ]);
-    }
-
     public function openModal($user, $type){
         $this->dispatch($type.'-user-modal-open', user: $user);
     }
@@ -75,8 +64,6 @@ class UsersList extends Component
                 session()->flash('message', 'Mailing nie został skonfigurowany. Nie można wysłać nowego hasła!');
             }
 
-
-
             return redirect()->route('users.list');
         }
     }
@@ -87,4 +74,15 @@ class UsersList extends Component
 
     public function updatedsearchBy()
     {$this->gotoPage(1);}
+
+    public function render()
+    {
+        return view('livewire.users.users-list',[
+            'users' => User::where('name', 'LIKE', '%' . $this->searchBy . '%')
+                ->orderBy('name', $this->sortBy)
+                ->select(['id','name','email'])
+                ->paginate($this->perPage)
+                ->withQueryString()
+        ]);
+    }
 }

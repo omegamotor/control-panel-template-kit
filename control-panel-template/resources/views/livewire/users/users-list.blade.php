@@ -88,7 +88,7 @@
                                             </button>
                                         @endif
 
-                                        <button type="button" class="btn btn-sm btn-secondary" wire:click='sendNewPassword({{$user}}, "delete")' data-bs-toggle="modal" title="Wygeneruj nowe hasło">
+                                        <button type="button" class="btn btn-sm btn-secondary" wire:click='sendNewPassword({{$user}})' data-bs-toggle="modal" title="Wygeneruj nowe hasło">
                                             <i class="fa-solid fa-envelope-open-text"></i>
                                         </button>
                                     </td>

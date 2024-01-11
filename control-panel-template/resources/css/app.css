@@ -45,3 +45,20 @@ select {
         transform: rotate(360deg);
     }
 }
+
+/* Custom Notifications */
+.notification-message-container {
+    max-width: 300px; /* Maksymalna szerokość kontenera, dostosuj do swoich potrzeb */
+    overflow: hidden;
+}
+
+.notification-message-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.expanded {
+    white-space: normal;
+}

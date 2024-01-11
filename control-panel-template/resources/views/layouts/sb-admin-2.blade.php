@@ -20,6 +20,23 @@
         {{-- jQuery --}}
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+        {{-- Pusher --}}
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+        <script>
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('0daff62c819714a1b44c', {
+              cluster: 'eu'
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+              alert(JSON.stringify(data));
+            });
+        </script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -113,56 +130,9 @@
                                 </div>
                             </li>
 
-                            <!-- Nav Item - Alerts -->
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bell fa-fw"></i>
-                                    <!-- Counter - Alerts -->
-                                    <span class="badge badge-danger badge-counter">3+</span>
-                                </a>
-                                <!-- Dropdown - Alerts -->
-                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="alertsDropdown">
-                                    <h6 class="dropdown-header">
-                                        Alerts Center
-                                    </h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-primary">
-                                                <i class="fas fa-file-alt text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 12, 2019</div>
-                                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-success">
-                                                <i class="fas fa-donate text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 7, 2019</div>
-                                            $290.29 has been deposited into your account!
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="mr-3">
-                                            <div class="icon-circle bg-warning">
-                                                <i class="fas fa-exclamation-triangle text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 2, 2019</div>
-                                            Spending Alert: We've noticed unusually high spending for your account.
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                </div>
-                            </li>
+                            <!-- Nav Item - Notifications -->
+                            @livewire('components.last-notifications-navbar')
+
 
                             <!-- Nav Item - Messages -->
                             <li class="nav-item dropdown no-arrow mx-1">
@@ -325,6 +295,12 @@
                 </div>
             </div>
         </div>
+
+        {{-- Toast Notification --}}
+        @livewire('components.toasts-notifications')
+
+
+
         {{-- Bootstrap --}}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="{{url('sb-admin-2/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -334,11 +310,11 @@
         <script src="{{url('sb-admin-2/jquery-easing/jquery.easing.min.js')}}"></script>
 
         <!-- Page level plugins -->
-        <script src="{{url('sb-admin-2/chart.js/Chart.min.js')}}"></script>
+        {{-- <script src="{{url('sb-admin-2/chart.js/Chart.min.js')}}"></script> --}}
 
         <!-- Page level custom scripts -->
-        <script src="{{url('sb-admin-2/demo/chart-area-demo.js')}}"></script>
-        <script src="{{url('sb-admin-2/demo/chart-pie-demo.js')}}"></script>
+        {{-- <script src="{{url('sb-admin-2/demo/chart-area-demo.js')}}"></script> --}}
+        {{-- <script src="{{url('sb-admin-2/demo/chart-pie-demo.js')}}"></script> --}}
 
         @stack('modals')
 

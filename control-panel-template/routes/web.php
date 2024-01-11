@@ -2,6 +2,7 @@
 
 use App\Livewire\Config\Email\ConfigEmailList;
 use App\Livewire\Demo\Dashboard;
+use App\Livewire\Notifications\NotificationsList;
 use App\Livewire\Users\Forms\LoginUser;
 use App\Livewire\Users\Forms\RegisterUser;
 use App\Livewire\Users\UsersList;
@@ -44,10 +45,15 @@ Route::middleware([
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     // Users
-    Route::get('/lista-uzytkownikow', UsersList::class)->name('users.list');
+    Route::get('/użytkownicy/lista', UsersList::class)->name('users.list');
 
     // Config
     Route::get('/ustawienia/mailing', ConfigEmailList::class)->name('config.email');
+
+    // Notifications
+    Route::get('/powiadomienia/lista', NotificationsList::class)->name('notifications.list');
+
+
 });
 
 
