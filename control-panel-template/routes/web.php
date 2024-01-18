@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Chats\ChatView;
 use App\Livewire\Config\Email\ConfigEmailList;
 use App\Livewire\Demo\Dashboard;
 use App\Livewire\Notifications\NotificationsList;
@@ -52,6 +53,9 @@ Route::middleware([
 
     // Notifications
     Route::get('/powiadomienia/lista', NotificationsList::class)->name('notifications.list');
+
+    // Chats
+    Route::get('/komunikator', ChatView::class)->name('chats.view');
 
 
 });

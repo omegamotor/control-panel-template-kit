@@ -72,5 +72,50 @@
             // Dodajemy nowy div z toastem do istniejącego kontenera
             $('#toast-notification-container').append(newToast);
         });
+
+
+        // Chat Notifications
+        var channel = pusher.subscribe('chat-channel');
+        channel.bind('message', function(data) {
+
+            let userId = @json($userId);
+
+            if(parseInt(data.receiver_id) === parseInt(userId)){
+                let bgColor = 'bg-primary';
+                let icon = 'fa-solid fa-comment';
+                let time = new Date().toLocaleString('pl-PL', { hour: 'numeric', minute: '2-digit', hour12: false });
+
+                let toastDiv = `
+                    <div class="toast-header bg-primary-subtle">
+                        <div class="alert-toas-icon me-2">
+                            <div class="${bgColor} rounded py-1 px-2">
+                                <i class="${icon} text-white"></i>
+                            </div>
+                        </div>
+
+                        <strong class="me-auto">Nowa wiadomość!</strong>
+                        <small>${time}</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                            <strong>Od:</strong> ${data.authorName}
+                            <br>
+                            ${data.message}
+                    </div>
+                `;
+
+                let newToast = $('<div>', {
+                    class: 'toast show',
+                    role: 'alert',
+                        'aria-live': 'assertive',
+                        'aria-atomic': 'true',
+                    html: toastDiv
+                });
+
+                // Dodajemy nowy div z toastem do istniejącego kontenera
+                $('#toast-notification-container').append(newToast);
+            };
+        });
+
     </script>
 @endscript

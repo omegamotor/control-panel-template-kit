@@ -61,13 +61,40 @@ class User extends Authenticatable
     ];
 
     // RELATIONSHIPS
-    public function sentCustomNotifications(): HasMany
-    {
-        return $this->hasMany(CustomNotification::class);
-    }
 
-    public function customNotifications(): HasMany
-    {
-        return $this->hasMany(CustomNotification::class);
-    }
+    // Custom Notifications (alerts)
+        public function sentCustomNotifications(): HasMany
+        {
+            return $this->hasMany(CustomNotification::class);
+        }
+
+        public function customNotifications(): HasMany
+        {
+            return $this->hasMany(CustomNotification::class);
+        }
+    //
+
+    // Chats
+        public function chatMessagesSend(): HasMany
+        {
+            return $this->hasMany(ChatMessage::class, 'author_id');
+        }
+
+        public function chatMessagesReceive(): HasMany
+        {
+            return $this->hasMany(ChatMessage::class, 'receiver_id');
+        }
+
+        public function chatMessagesSendForUser(int $receiverId): HasMany
+        {
+            return $this->hasMany(ChatMessage::class, 'author_id')
+                ->where('receiver_id', $receiverId);
+        }
+
+        public function chatMessagesReceiveForUser(int $authorId): HasMany
+        {
+            return $this->hasMany(ChatMessage::class, 'receiver_id')
+                ->where('author_id', $authorId);
+        }
+    //
 }
