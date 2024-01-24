@@ -55,9 +55,7 @@ Route::middleware([
     Route::get('/powiadomienia/lista', NotificationsList::class)->name('notifications.list');
 
     // Chats
-    Route::get('/komunikator', ChatView::class)->name('chats.view');
-
-
+    Route::get('/komunikator/{userId?}', ChatView::class)->name('chats.view');
 });
 
 

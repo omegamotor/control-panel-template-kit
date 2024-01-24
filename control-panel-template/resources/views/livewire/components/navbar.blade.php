@@ -99,6 +99,10 @@
                 <a class="collapse-item @if(Route::is('config.email')) active @endif" href="{{route('config.email')}}">
                     <i class="fa-solid fa-envelope"></i> Mailing
                 </a>
+
+                <a class="collapse-item @if(Route::is('config.email')) active @endif" href="{{route('config.email')}}">
+                    <i class="fa-regular fa-comment"></i> Powiadomienia (Pusher)
+                </a>
             </div>
         </div>
     </li>

@@ -12,7 +12,7 @@ class LastNotificationsNavbar extends Component
     public $notReadedCount = 0;
 
     public function mount(){
-        $this->notReadedCount = $this->notifications = CustomNotification::where('user_id', Auth::user()->id)
+        $this->notReadedCount = CustomNotification::where('user_id', Auth::user()->id)
         ->where('is_readed', false)
         ->count();
     }

@@ -28,9 +28,19 @@ class ChatView extends Component
         ]);
     }
 
+    public function mount($userId = null){
+        $user = User::find($userId);
+
+        if ($user) {
+            $this->setActiveUserTo($user);
+        }
+
+    }
+
     public function setActiveUserTo(User $user){
         $this->activeUser = $user;
         $this->loadMessages();
+        $this->setMessagesReadead($this->activeUser->id);
     }
 
     public function sendMessage(){
@@ -63,5 +73,15 @@ class ChatView extends Component
         ->get();
 
         $this->dispatch('go-to-last-messages');
+    }
+
+    public function setMessagesReadead($author_id){
+        $messagesUnreaded = ChatMessage::where('author_id', $author_id)
+            ->where('receiver_id', Auth::id())->get();
+
+        foreach ($messagesUnreaded as $message) {
+            $message->is_readed = true;
+            $message->save();
+        }
     }
 }
