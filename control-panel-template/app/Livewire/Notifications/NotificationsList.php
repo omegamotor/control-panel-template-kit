@@ -71,7 +71,7 @@ class NotificationsList extends Component
             $notification->is_readed = 1;
             $notification->save();
         }
-
+        $this->dispatch('load-alerts');
         // $this->gotoPage(1);
     }
 

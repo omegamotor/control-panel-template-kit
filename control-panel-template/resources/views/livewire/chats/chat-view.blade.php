@@ -182,9 +182,12 @@
         var channel = pusher.subscribe('chat-channel');
         channel.bind('message', function(data) {
 
+            let userId = @json($userId);
             if(parseInt(data.receiver_id) === parseInt(userId)){
                 let time = new Date().toLocaleString('pl-PL', { hour: 'numeric', minute: '2-digit', hour12: false });
             };
+
+            Livewire.dispatch('load-messages');
         });
 
 

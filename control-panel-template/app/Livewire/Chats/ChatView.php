@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Traits\FilterTrait;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 
 class ChatView extends Component
 {
@@ -18,6 +19,8 @@ class ChatView extends Component
     public $messages = [];
     public $previousMessageAuthorId = 0;
     // public $nextMessage = null;
+
+    public $userId;
 
     public $newMessage = '';
 
@@ -30,11 +33,11 @@ class ChatView extends Component
 
     public function mount($userId = null){
         $user = User::find($userId);
+        $this->userId = Auth::id();
 
         if ($user) {
             $this->setActiveUserTo($user);
         }
-
     }
 
     public function setActiveUserTo(User $user){
@@ -58,6 +61,7 @@ class ChatView extends Component
         }
     }
 
+    #[On('new-message')]
     public function loadMessages(){
         $userId = $this->activeUser->id; // Assuming $user is the user instance you're comparing with
         $currentUserId = Auth::id();

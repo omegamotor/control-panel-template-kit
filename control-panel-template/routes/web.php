@@ -22,9 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 // Route::middleware([
 //     'auth:sanctum',
@@ -41,9 +39,12 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
     // Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
-    Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    Route::get('/', Dashboard::class)->name('dashboard');
 
     // Users
     Route::get('/użytkownicy/lista', UsersList::class)->name('users.list');

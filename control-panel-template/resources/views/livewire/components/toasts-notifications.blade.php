@@ -71,6 +71,9 @@
 
             // Dodajemy nowy div z toastem do istniejącego kontenera
             $('#toast-notification-container').append(newToast);
+
+            // Wczytaj nowe powiadomienie
+            Livewire.dispatch('load-alerts');
         });
 
 
@@ -114,6 +117,9 @@
 
                 // Dodajemy nowy div z toastem do istniejącego kontenera
                 $('#toast-notification-container').append(newToast);
+
+                // Wczytaj nową wiadomość
+                Livewire.dispatch('load-messages');
             };
         });
 
