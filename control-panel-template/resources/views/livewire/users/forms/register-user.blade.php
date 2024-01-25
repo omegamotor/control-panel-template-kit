@@ -19,6 +19,7 @@
                 <label for="password" class="form-label">Hasło:</label>
                 <input wire:model="password" type="password" id="password" class="form-control" name="password" required>
                 @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                <small>Min 8 znaków, 1 wielka litera i 1 znak specjalny</small>
             </div>
 
             <div class="mb-3">

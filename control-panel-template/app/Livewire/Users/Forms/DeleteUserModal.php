@@ -28,11 +28,9 @@ class DeleteUserModal extends Component
     public function deleteUser(){
         $this->user->delete();
 
-        $message = "Użytkownik został usunięty!";
         session()->flash('alert-type', 'SUCCESS');
-        session()->flash('message', $message);
+        session()->flash('message', "Użytkownik został usunięty!");
 
         return redirect()->route('users.list');
-
     }
 }

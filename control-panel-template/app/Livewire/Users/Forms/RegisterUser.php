@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Users\Forms;
 
+use App\Mail\NewAccountEmail;
+use App\Models\AppConfigurationEmail;
 use App\Models\User;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class RegisterUser extends Component
@@ -16,7 +19,7 @@ class RegisterUser extends Component
     #[Validate('required|email|max:255|unique:users', 'Email')]
     public $email;
 
-    #[Validate('required|string|min:8', 'Hasło')]
+    #[Validate('required|string|min:8|regex:/^(?=.*[^\w\d\s:])(?=.*[A-Z]).*$/', 'Hasło', message: 'Hasło musi zawierać min 8 znaków, w tym 1 znak specjalny i 1 wielką literę!')]
     public $password;
 
     public $passwordConfirmation;
@@ -32,14 +35,30 @@ class RegisterUser extends Component
     {
         $validatedData = $this->validate();
 
-        User::create([
+        $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
 
-        session()->flash('alert-type', 'SUCCESS');
-        session()->flash('message', 'Rejestracja zakończona pomyślnie!');
+        $shouldSendEmail = AppConfigurationEmail::first()->active_sending;
+
+        if($user && $shouldSendEmail){
+            Mail::to($user->email)->send(new NewAccountEmail($validatedData['name'], $validatedData['email']));
+            $message = "Rejestracja zakończona pomyślnie!";
+            $type = "SUCCESS";
+
+        }else if($user){
+            $message = "Rejestracja zakończona pomyślnie! Wysyłanie e-maili jest wyłączone, użytkownik nie zostanie poinformowany!";
+            $type = "SUCCESS";
+
+        }else{
+            $message = "Podczas dodawania użytkownika wystąpił błąd!";
+            $type = "ERROR";
+        }
+
+        session()->flash('alert-type', $type);
+        session()->flash('message', $message);
 
         return redirect()->route('users.login');
     }

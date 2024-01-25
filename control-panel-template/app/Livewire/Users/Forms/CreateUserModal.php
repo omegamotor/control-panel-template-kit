@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Users\Forms;
 
+use App\Mail\NewAccountEmail;
+use App\Models\AppConfigurationEmail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -15,7 +18,7 @@ class CreateUserModal extends Component
     #[Validate('required|email|max:255|unique:users', 'Email')]
     public $email;
 
-    #[Validate('required|string|min:8|confirmed', 'Hasło')]
+    #[Validate('required|string|min:8|regex:/^(?=.*[^\w\d\s:])(?=.*[A-Z]).*$/', 'Hasło', message: 'Hasło musi zawierać min 8 znaków, w tym 1 znak specjalny i 1 wielką literę!')]
     public $password;
 
     public $password_confirmation;
@@ -24,16 +27,30 @@ class CreateUserModal extends Component
     {
         $validatedData = $this->validate();
 
-        User::create([
+        $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
 
-        $message = "Użytkownik zosał dodany!";
-        $type = "Sukces";
+        $shouldSendEmail = AppConfigurationEmail::first()->active_sending;
 
-        session()->flash('alert-type', 'SUCCESS');
+        if($user && $shouldSendEmail){
+            Mail::to($user->email)->send(new NewAccountEmail($validatedData['name'], $validatedData['email']));
+            $message = "Użytkownik zosał dodany!";
+            $type = "SUCCESS";
+
+        }else if($user){
+            $message = "Użytkownik zosał dodany! Wysyłanie e-maili jest wyłączone, użytkownik nie zostanie poinformowany!";
+            $type = "SUCCESS";
+
+        }else{
+            $message = "Podczas dodawania użytkownika wystąpił błąd!";
+            $type = "ERROR";
+
+        }
+
+        session()->flash('alert-type', $type);
         session()->flash('message', $message);
 
         return redirect()->route('users.list');

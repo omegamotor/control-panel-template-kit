@@ -229,7 +229,7 @@
                     <div class="password"><strong>{{$name}}</strong></div>
                     <br>
                     <h2>Twoje hasło</h2>
-                    <div class="password"><strong>{{$newPassword}}</strong></div>
+                    <div class="password"><strong>{{$password}}</strong></div>
                 </section>
                 <hr>
                 <h2>Uwaga</h2>

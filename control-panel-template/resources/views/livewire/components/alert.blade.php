@@ -9,7 +9,7 @@
 
 
     @if (session()->has('message') && session()->has('alert-type'))
-        @if (session()->get('alert-type') === 'ERROR')>
+        @if (session()->get('alert-type') === 'ERROR')
             <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                 <strong><i class="fa-solid fa-triangle-exclamation mr-1"></i>BŁĄD: </strong>
                 {{ session()->get('message') }}

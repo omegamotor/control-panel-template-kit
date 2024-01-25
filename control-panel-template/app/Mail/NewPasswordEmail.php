@@ -37,7 +37,7 @@ class NewPasswordEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.users.new-password-mail',
+            view: 'emails.users.new-password-email',
             with: [
                 'name' => $this->user->email,
                 'newPassword' => $this->newPassword,
