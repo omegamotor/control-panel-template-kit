@@ -15,15 +15,21 @@ class TestConfigEmailModal extends Component
 
     public function sendTestEmail(){
         $validatedData = $this->validate();
-
         $email = $validatedData['email'];
-
         $shouldSendEmail = AppConfigurationEmail::first()->active_sending;
 
         if($shouldSendEmail){
-            Mail::to($email)->send(new TestEmail());
-            $type = 'SUCCESS';
-            $message = 'Testowa wiadomość została wysłana na podany email. Proszę się upewnić, że wiadomość dotarła!';
+            try {
+                Mail::to($email)->send(new TestEmail());
+                $type = 'SUCCESS';
+                $message = 'Testowa wiadomość została wysłana na podany email. Proszę się upewnić, że wiadomość dotarła!';
+            } catch (\Throwable $th) {
+                $type = 'ERROR';
+                $message = 'Testowa wiadomość nie została wysłana. Proszę się upewnić, że wysyłanie jest włączone, a mailing skonfigurowany!';
+                session()->flash('alert-type', $type);
+                session()->flash('message', $message);
+            }
+
         }else{
             $type = 'ERROR';
             $message = 'Testowa wiadomość nie została wysłana. Proszę się upewnić, że wysyłanie jest włączone, a mailing skonfigurowany!';

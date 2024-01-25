@@ -36,12 +36,20 @@ class CreateUserModal extends Component
         $shouldSendEmail = AppConfigurationEmail::first()->active_sending;
 
         if($user && $shouldSendEmail){
-            Mail::to($user->email)->send(new NewAccountEmail($validatedData['name'], $validatedData['email']));
-            $message = "Użytkownik zosał dodany!";
             $type = "SUCCESS";
+            $message = "Użytkownik zosał dodany!";
+
+            try {
+                Mail::to($user->email)->send(new NewAccountEmail($validatedData['name'], $validatedData['email']));
+            } catch (\Throwable $th) {
+                $type = 'ERROR';
+                $message = 'Mailing został źle skonfigurowany albo wysyłanie jest zablokowane. Użytkownik nie zostanie poinformowany!';
+                session()->flash('alert-type', $type);
+                session()->flash('message', $message);
+            }
 
         }else if($user){
-            $message = "Użytkownik zosał dodany! Wysyłanie e-maili jest wyłączone, użytkownik nie zostanie poinformowany!";
+            $message = "Użytkownik zosał dodany! Wysyłanie e-maili jest wyłączone. Użytkownik nie zostanie poinformowany!";
             $type = "SUCCESS";
 
         }else{

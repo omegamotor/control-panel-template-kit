@@ -65,6 +65,39 @@ class EditConfigEmailModal extends Component
         $this->conf->configuration_done = true;
         $this->conf->save();
 
+        $env = [
+            'MAIL_MAILER' => '"' . $this->conf->mailer . '"',
+            'MAIL_HOST' => '"' . $this->conf->host . '"',
+            'MAIL_PORT' => '"' . $this->conf->port . '"',
+            'MAIL_ENCRYPTION' => '"' . $this->conf->encryption . '"',
+            'MAIL_USERNAME' => '"' . $this->conf->username . '"',
+            'MAIL_PASSWORD' => '"' . $this->conf->password . '"',
+            'MAIL_FROM_NAME' => '"' . $this->conf->from_name . '"',
+            'MAIL_FROM_ADDRESS' => '"' . $this->conf->from_address . '"',
+        ];
+
+        $envFile = app()->environmentFilePath();
+        $str = file_get_contents($envFile);
+
+        foreach ($env as $key => $value) {
+            // Check if the environment variable already exists in the .env file
+            if (str_contains($str, $key)) {
+                // Replace the existing environment variable value
+                $str = preg_replace(
+                    '/^' . preg_quote($key) . '=.*/m',
+                    $key . '=' . $value,
+                    $str
+                );
+            } else {
+                // Append the new environment variable to the end of the .env file
+                $str .= "\n" . $key . '=' . $value;
+            }
+            // Set the environment variable in the current PHP process
+            putenv($key . '=' . $value);
+        }
+
+        file_put_contents($envFile, $str);
+
         $message = "Configuracja mailingu została zaktualizowana!";
 
         session()->flash('alert-type', 'SUCCESS');

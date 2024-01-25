@@ -56,7 +56,15 @@ class UsersList extends Component
                 $message = "Nowe hasło zostało wysłane na podany email!";
                 $type = "SUCCESS";
 
-                Mail::to($user->email)->send(new NewPasswordEmail($user, $newPassword));
+                try {
+                    Mail::to($user->email)->send(new NewPasswordEmail($user, $newPassword));
+                } catch (\Throwable $th) {
+                    $type = 'ERROR';
+                    $message = 'Mailing został źle skonfigurowany albo wysyłanie jest zablokowane. Nie można wysłać nowego hasła!';
+                    session()->flash('alert-type', $type);
+                    session()->flash('message', $message);
+                }
+
             }else{
                 $message = "Mailing nie został skonfigurowany albo wysyłanie jest zablokowane. Nie można wysłać nowego hasła!";
                 $type = "ERROR";

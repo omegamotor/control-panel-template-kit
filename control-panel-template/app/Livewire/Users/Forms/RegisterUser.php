@@ -44,12 +44,20 @@ class RegisterUser extends Component
         $shouldSendEmail = AppConfigurationEmail::first()->active_sending;
 
         if($user && $shouldSendEmail){
-            Mail::to($user->email)->send(new NewAccountEmail($validatedData['name'], $validatedData['email']));
             $message = "Rejestracja zakończona pomyślnie!";
             $type = "SUCCESS";
 
+            try {
+                Mail::to($user->email)->send(new NewAccountEmail($validatedData['name'], $validatedData['email']));
+            } catch (\Throwable $th) {
+                $type = 'ERROR';
+                $message = 'Mailing został źle skonfigurowany albo wysyłanie jest zablokowane. Użytkownik nie zostanie poinformowany o utworzeniu konta!';
+                session()->flash('alert-type', $type);
+                session()->flash('message', $message);
+            }
+
         }else if($user){
-            $message = "Rejestracja zakończona pomyślnie! Wysyłanie e-maili jest wyłączone, użytkownik nie zostanie poinformowany!";
+            $message = "Rejestracja zakończona pomyślnie! Wysyłanie e-maili jest wyłączone. Użytkownik nie zostanie poinformowany o utworzeniu konta!";
             $type = "SUCCESS";
 
         }else{
