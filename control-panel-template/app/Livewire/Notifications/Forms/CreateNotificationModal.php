@@ -38,7 +38,20 @@ class CreateNotificationModal extends Component
             ]);
         }
 
-        event(new PusherBroadcast($validatedData['title'], $validatedData['message'], $validatedData['type']));
+
+
+        try {
+            event(new PusherBroadcast($validatedData['title'], $validatedData['message'], $validatedData['type']));
+        } catch (\Throwable $th) {
+            //throw $th;
+            $type = 'ERROR';
+            $message = 'Powiadomienie nie zostanie poprawnie wysłana! Pusher jest żle skonfigurowany!';
+            session()->flash('alert-type', $type);
+            session()->flash('message', $message);
+
+            return redirect()->route('notifications.list');
+        }
+
 
         $message = "Powiadomienie zosało wysłane!";
         $type = "SUCCESS";

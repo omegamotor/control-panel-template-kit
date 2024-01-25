@@ -8,8 +8,12 @@
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = false;
 
-        var pusher = new Pusher('6242c773ae3d51a19892', {
-            cluster: 'eu'
+        // var pusher = new Pusher('6242c773ae3d51a19892', {
+        //     cluster: 'eu'
+        // });
+
+        var pusher = new Pusher('{{ $pusherAppKey }}', {
+            cluster: '{{ $pusherAppCluster }}'
         });
 
         var channel = pusher.subscribe('alert-channel');

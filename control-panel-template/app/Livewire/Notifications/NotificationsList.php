@@ -57,7 +57,17 @@ class NotificationsList extends Component
             ]);
         }
 
-        event(new PusherBroadcast($title, $message, $type));
+        try {
+            event(new PusherBroadcast($title, $message, $type));
+        } catch (\Throwable $th) {
+            //throw $th;
+            $type = 'ERROR';
+            $message = 'Wiadomość nie zostanie poprawnie wysłana! Pusher jest żle skonfigurowany!';
+            session()->flash('alert-type', $type);
+            session()->flash('message', $message);
+
+            return redirect()->route('notifications.list');
+        }
     }
 
     #[On('newNotification')]

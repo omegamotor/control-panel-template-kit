@@ -2,6 +2,7 @@
 
 use App\Livewire\Chats\ChatView;
 use App\Livewire\Config\Email\ConfigEmailList;
+use App\Livewire\Config\Pusher\ConfigPusherList;
 use App\Livewire\Demo\Dashboard;
 use App\Livewire\Notifications\NotificationsList;
 use App\Livewire\Users\Forms\LoginUser;
@@ -51,6 +52,7 @@ Route::middleware([
 
     // Config
     Route::get('/ustawienia/mailing', ConfigEmailList::class)->name('config.email');
+    Route::get('/ustawienia/pusher', ConfigPusherList::class)->name('config.pusher');
 
     // Notifications
     Route::get('/powiadomienia/lista', NotificationsList::class)->name('notifications.list');

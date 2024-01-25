@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // Dev or Prod
             AppConfigurationEmailSeeder::class,
+            AppConfigurationPusherSeeder::class,
         ]);
 
     }

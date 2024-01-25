@@ -23,20 +23,6 @@
         {{-- Pusher --}}
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
-        <script>
-            // Enable pusher logging - don't include this in production
-            Pusher.logToConsole = true;
-
-            var pusher = new Pusher('0daff62c819714a1b44c', {
-              cluster: 'eu'
-            });
-
-            var channel = pusher.subscribe('my-channel');
-            channel.bind('my-event', function(data) {
-              alert(JSON.stringify(data));
-            });
-        </script>
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -44,7 +30,6 @@
         @livewireStyles
     </head>
     <body id="page-top">
-
         <!-- Page Wrapper -->
         <div id="wrapper">
 

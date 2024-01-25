@@ -7,6 +7,7 @@ use App\Models\ChatMessage;
 use App\Models\User;
 use Livewire\Component;
 use App\Traits\FilterTrait;
+use App\Traits\PusherEnvTrait;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -14,6 +15,7 @@ use Livewire\Attributes\On;
 class ChatView extends Component
 {
     // use FilterTrait;
+    use PusherEnvTrait;
 
     public User|Null $activeUser;
     public $messages = [];
@@ -54,7 +56,17 @@ class ChatView extends Component
                 'message' => $this->newMessage,
             ]);
 
-            event(new ChatPusherBroadcast(Auth::user()->name, $this->activeUser->id, $this->newMessage));
+            try {
+                event(new ChatPusherBroadcast(Auth::user()->name, $this->activeUser->id, $this->newMessage));
+            } catch (\Throwable $th) {
+                //throw $th;
+                $type = 'ERROR';
+                $message = 'Wiadomość nie zostanie poprawnie wysłana! Pusher jest żle skonfigurowany!';
+                session()->flash('alert-type', $type);
+                session()->flash('message', $message);
+
+                return redirect()->route('chats.view');
+            }
 
             $this->loadMessages();
             $this->reset('newMessage');

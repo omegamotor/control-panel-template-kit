@@ -1,11 +1,7 @@
 <div>
-    {{-- Modals --}}
-    {{-- @livewire('users.forms.delete-user-modal')
-    @livewire('users.forms.edit-user-modal') --}}
-
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Configuracja - Mailing</h1>
+        <h1 class="h3 mb-0 text-gray-800">Konfiguracja - Mailing</h1>
     </div>
 
     @livewire('components.alert')

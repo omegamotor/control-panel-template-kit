@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('app_configuration_emails', function (Blueprint $table) {
+        Schema::create('app_configuration_pushers', function (Blueprint $table) {
             $table->id();
             $table->boolean('configuration_done')->default(false);
-            $table->boolean('active_sending')->default(false);
-            $table->string('mailer');
+            $table->string('app_id');
+            $table->string('app_key');
+            $table->string('app_secret');
+            $table->string('app_cluster');
             $table->string('host');
-            $table->integer('port');
-            $table->string('username');
-            $table->string('password');
-            $table->string('encryption');
-            $table->string('from_address');
-            $table->string('from_name');
+            $table->string('port');
+            $table->string('scheme');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('app_configuration_emails');
+        Schema::dropIfExists('app_configuration_pushers');
     }
 };
