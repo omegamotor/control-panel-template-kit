@@ -6,6 +6,7 @@
     display: none;
 } */
 @import './sb-admin-2.css';
+@import '../scss/calendar.css';
 
 *{
     margin:0;
@@ -345,3 +346,6 @@ margin-right: 40px !important;
 .clickable {
     cursor: pointer;
 }
+
+
+

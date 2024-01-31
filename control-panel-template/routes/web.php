@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Calendars\CalendarShow;
 use App\Livewire\Chats\ChatView;
 use App\Livewire\Config\Email\ConfigEmailList;
 use App\Livewire\Config\Pusher\ConfigPusherList;
@@ -49,6 +50,9 @@ Route::middleware([
 
     // Users
     Route::get('/użytkownicy/lista', UsersList::class)->name('users.list');
+
+    // Calendar
+    Route::get('/kalendarz-pracy', CalendarShow::class)->name('calendar.list');
 
     // Config
     Route::get('/ustawienia/mailing', ConfigEmailList::class)->name('config.email');

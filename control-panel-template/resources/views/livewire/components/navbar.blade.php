@@ -85,6 +85,11 @@
             <i class="fa-solid fa-users"></i>
             <span>Użytkownicy</span>
         </a>
+
+        <a class="nav-link" href="{{route('calendar.list')}}">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Kalendarz Pracy</span>
+        </a>
     </li>
 
     <li class="nav-item">
