@@ -5,6 +5,7 @@ use App\Livewire\Config\Email\ConfigEmailList;
 use App\Livewire\Config\Pusher\ConfigPusherList;
 use App\Livewire\Demo\Dashboard;
 use App\Livewire\Notifications\NotificationsList;
+use App\Livewire\Tests\PdfTestTemplate;
 use App\Livewire\Users\Forms\LoginUser;
 use App\Livewire\Users\Forms\RegisterUser;
 use App\Livewire\Users\UsersList;
@@ -50,6 +51,7 @@ Route::middleware([
     // Users
     Route::get('/użytkownicy/lista', UsersList::class)->name('users.list');
 
+
     // Config
     Route::get('/ustawienia/mailing', ConfigEmailList::class)->name('config.email');
     Route::get('/ustawienia/pusher', ConfigPusherList::class)->name('config.pusher');
@@ -65,5 +67,7 @@ Route::middleware([
 // Users
 Route::get('/login', LoginUser::class)->name('users.login');
 Route::get('/register', RegisterUser::class)->name('users.register');
+
+Route::get('/test/pdf', PdfTestTemplate::class)->name('test.pdf');
 
 
