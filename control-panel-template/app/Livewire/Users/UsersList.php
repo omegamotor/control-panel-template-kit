@@ -2,15 +2,22 @@
 
 namespace App\Livewire\Users;
 
+use App\Exports\UsersExport;
 use App\Http\Helpers\passwordGenerator;
 use App\Models\User;
 use App\Mail\NewPasswordEmail;
 use App\Models\AppConfigurationEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\FilterTrait;
+
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class UsersList extends Component
 {
@@ -34,6 +41,9 @@ class UsersList extends Component
         'searchBy' => 'users_list-searchBy',
     ];
     // --------------------------------------
+
+    // Select users
+    public Collection $selectedUsers;
 
     public function openModal($user, $type){
         $this->dispatch($type.'-user-modal-open', user: $user);
@@ -77,6 +87,32 @@ class UsersList extends Component
         }
     }
 
+    public function export($file){
+        $usersExport = new UsersExport($this->getSelectedUsers());
+        $fileName = 'Uzytkownicy ' . date('d-m-Y') . '.' . $file;
+        $data = ['users' => $usersExport->collection()];
+
+        abort_if(!in_array($file,['csv', 'xlsx', 'pdf']), Response::HTTP_NOT_FOUND);
+
+        if($file == 'pdf'){
+            $pdf = PDF::loadView('pdf/users-pdf', $data);
+            $pdf->output();
+            $domPdf = $pdf->getDomPDF();
+            $canvas = $domPdf->get_canvas();
+            $canvas->page_text(10, 10, "Strona {PAGE_NUM} z {PAGE_COUNT}", null, 10, [0, 0, 0]);
+            return response()->streamDownload(function() use ($pdf){
+                echo $pdf->stream();
+            }, $fileName);
+
+        }else if($file == 'xlsx'){
+            return Excel::download($usersExport, $fileName);
+        }
+    }
+
+    public function getSelectedUsers(){
+        return $this->selectedUsers->filter(fn($u) => $u)->keys();
+    }
+
     // To First Page After Change filters
     public function updatedPerPage()
     {$this->gotoPage(1);}
@@ -93,5 +129,9 @@ class UsersList extends Component
                 ->paginate($this->perPage)
                 ->withQueryString()
         ]);
+    }
+
+    public function mount(){
+        $this->selectedUsers = collect();
     }
 }

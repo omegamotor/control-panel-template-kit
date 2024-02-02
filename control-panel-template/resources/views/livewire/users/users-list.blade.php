@@ -37,8 +37,19 @@
 
             <div class="d-flex gap-1">
                 @livewire('users.forms.create-user-modal')
-                {{-- <div class="btn btn-sm btn-danger disabled" disabled><i class="fa-solid fa-trash-can"></i> Usuń zaznaczone</div>
-                <div class="btn btn-sm btn-secondary disabled" disabled><i class="fa-solid fa-envelope-open-text"></i> Wyślij nowe hasła</div> --}}
+                <div class="btn btn-sm btn-secondary btn-icon-split" wire:click="export('pdf')" wire:loading.attr='disabled'>
+                    <span class="icon">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </span>
+                    <span class="text">PDF</span>
+                </div>
+
+                <div class="btn btn-sm btn-success btn-icon-split" wire:click="export('xlsx')" wire:loading.attr='disabled'>
+                    <span class="icon">
+                        <i class="fa-solid fa-file-excel"></i>
+                    </span>
+                    <span class="text">XLSX</span>
+                </div>
             </div>
         </div>
     </div>
@@ -54,11 +65,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                {{-- <th style="width: 40px;">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="checkAllUsers">
-                                    </div>
-                                </th> --}}
+                                <th></th>
                                 <th>Nazwa</th>
                                 <th>Email</th>
                                 <th>Opcje</th>
@@ -67,11 +74,11 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr wire:key="{{ $user->id }}">
-                                    {{-- <td>
+                                    <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="checkUser{{$user->id}}">
+                                            <input class="form-check-input" type="checkbox" value="" wire:model='selectedUsers.{{$user->id}}'>
                                         </div>
-                                    </td> --}}
+                                    </td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>
