@@ -1,8 +1,3 @@
-@media only screen and (min-width: 992px) {
-  .footer-chat {
-    width: calc(100% - 400px) !important;
-  }
-}
 .chat {
   width: 100%;
   padding-right: 0px;
