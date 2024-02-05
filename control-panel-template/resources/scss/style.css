@@ -6,4 +6,146 @@
 .chat {
   width: 100%;
   padding-right: 0px;
+}
+
+.files-box-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.files-box-grid .file {
+  width: 75px;
+  border-radius: 5px;
+  position: relative;
+}
+.files-box-grid .file__icon {
+  text-align: center;
+}
+.files-box-grid .file__title {
+  text-align: center;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.files-box-grid .file__date {
+  text-overflow: ellipsis;
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  display: block;
+  width: 145px;
+  height: 33px;
+  text-align: center;
+  font-size: 10px;
+  border-radius: 5px;
+  z-index: 1;
+  color: #c4c4c4;
+  background-color: #1d1d1d;
+  border: 1px solid #292929;
+  opacity: 0;
+  transition: opacity 1s;
+  transition-delay: 1s;
+}
+
+.files-box-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-direction: column;
+}
+.files-box-list .file {
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.files-box-list .file__icon {
+  text-align: left;
+  margin: 0 50px 0 20px;
+  width: 32px;
+}
+.files-box-list .file__title {
+  margin: auto 0;
+  text-align: center;
+  font-size: 14px;
+}
+.files-box-list .file__date {
+  margin: auto 20px auto 0;
+  text-align: center;
+  font-size: 14px;
+}
+.files-box-list .file__delete-btn {
+  position: relative;
+  padding: 0.6rem;
+}
+.files-box-list .file__delete-btn:hover {
+  color: #E02D1B;
+}
+
+.file {
+  cursor: pointer;
+  width: 75px;
+  border-radius: 5px;
+}
+.file__icon {
+  text-align: center;
+  font-size: 2rem;
+  text-shadow: 0px 0px 5px rgba(86, 86, 86, 0.3607843137);
+}
+.file .file-icon {
+  color: #fff;
+}
+.file .folder-icon {
+  color: #fff65a;
+}
+.file__title {
+  color: black;
+  text-align: center;
+  font-size: 14px;
+}
+.file__delete-btn {
+  color: #E74A3B;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.file__delete-btn:hover {
+  color: #E02D1B;
+}
+
+.file:hover {
+  background: #e3e4e7;
+}
+.file:hover__date {
+  visibility: visible;
+}
+.file:hover__title {
+  overflow: visible;
+}
+
+.file:hover .file__date {
+  opacity: 1;
+}
+
+input[type=file] {
+  border: 1px solid black;
+  border-radius: 0.2rem;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #4E73DF;
+  padding: 0.25rem 0.5rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #2E59D9;
 }/*# sourceMappingURL=style.css.map */

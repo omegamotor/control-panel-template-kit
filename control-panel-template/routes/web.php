@@ -4,6 +4,7 @@ use App\Livewire\Chats\ChatView;
 use App\Livewire\Config\Email\ConfigEmailList;
 use App\Livewire\Config\Pusher\ConfigPusherList;
 use App\Livewire\Demo\Dashboard;
+use App\Livewire\Files\FilesList;
 use App\Livewire\Notifications\NotificationsList;
 use App\Livewire\Tests\PdfTestTemplate;
 use App\Livewire\Users\Forms\LoginUser;
@@ -51,6 +52,8 @@ Route::middleware([
     // Users
     Route::get('/użytkownicy/lista', UsersList::class)->name('users.list');
 
+    // Files
+    Route::get('/pliki/lista', FilesList::class)->name('files.list');
 
     // Config
     Route::get('/ustawienia/mailing', ConfigEmailList::class)->name('config.email');
