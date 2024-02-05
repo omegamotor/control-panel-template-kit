@@ -10,8 +10,8 @@ class DiskSpace extends Component
     public $totalDiskSpace;
 
     public function mount(){
-        $this->totalDiskSpace = number_format(disk_total_space("C:") / 1024 / 1024 / 1024,2);
-        $this->freeDiskSpace = number_format(disk_free_space("C:") / 1024 / 1024 / 1024,2);
+        $this->totalDiskSpace = number_format(disk_total_space("/") / 1024 / 1024 / 1024,2);
+        $this->freeDiskSpace = number_format(disk_free_space("/") / 1024 / 1024 / 1024,2);
     }
 
     public function render()
