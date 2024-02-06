@@ -7,6 +7,7 @@
 } */
 @import './sb-admin-2.css';
 @import '../scss/calendar.css';
+@import '../scss/style.css';
 
 *{
     margin:0;

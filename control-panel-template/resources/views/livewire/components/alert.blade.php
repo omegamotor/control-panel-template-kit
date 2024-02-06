@@ -7,7 +7,6 @@
         </div>
     @endif --}}
 
-
     @if (session()->has('message') && session()->has('alert-type'))
         @if (session()->get('alert-type') === 'ERROR')
             <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">

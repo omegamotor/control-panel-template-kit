@@ -92,6 +92,13 @@
         </a>
     </li>
 
+    <li class="nav-item @if(Route::is('files.list')) active @endif">
+        <a class="nav-link" href="{{route('files.list')}}">
+            <i class="fa-regular fa-folder-open"></i>
+            <span>Pliki</span>
+        </a>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">

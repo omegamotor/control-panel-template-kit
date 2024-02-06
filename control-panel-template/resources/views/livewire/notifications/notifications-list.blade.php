@@ -20,7 +20,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Opcje</h6>
         </div>
         <div class="card-body">
-            <div class="my-3 d-flex" style="align-items: baseline">
+            <div class="my-3 d-flex flex-wrap" style="align-items: baseline">
                 <label for="searchBy" class="form-label form-label-sm mr-2" >Szukaj: </label>
                 <input wire:model.live="searchBy" class="form-control form-control-sm mr-2" style="width: 150px;" type="text" placeholder="szukaj">
 
