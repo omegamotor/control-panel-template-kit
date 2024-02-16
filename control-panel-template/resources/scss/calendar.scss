@@ -519,6 +519,12 @@ $tangerine: #f86a6c;
     color: #1E293B;
     width: 40px;
 }
+@media screen and (max-width:550px) {
+      .day-label{
+        font-size: 0.67rem;
+    }
+}
+
 
 .day {
     position: relative;

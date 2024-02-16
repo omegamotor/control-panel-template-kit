@@ -50,6 +50,11 @@
   width: 40px;
 }
 
+@media screen and (max-width: 550px) {
+  .day-label {
+    font-size: 0.67rem;
+  }
+}
 .day {
   position: relative;
   flex-basis: calc(14.286% - 2px);

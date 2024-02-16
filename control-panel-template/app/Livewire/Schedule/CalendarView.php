@@ -259,16 +259,6 @@ class CalendarView extends Component
     public function getDayOf($day){
         $dayOf = Carbon::parse($day['fullDate'])->dayOfWeek;
         $dayOf = ($dayOf + 6) % 7;
-        // $dayOf -= 1;
-        // if($dayOf == -1){
-        //     $dayOf = 6;
-        // }
-
-        // $dayOf = match ($dayOf) {
-        //     0 => 6,
-        //     default => $dayOf - 1,
-        // };
-
         return $dayOf;
     }
 
@@ -326,7 +316,6 @@ class CalendarView extends Component
     }
 
     public function render(){
-
         return view('livewire.schedule.calendar-view');
     }
 }
