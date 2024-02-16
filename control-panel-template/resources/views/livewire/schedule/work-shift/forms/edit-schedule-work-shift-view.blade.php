@@ -1,6 +1,6 @@
 <div>
     <!-- Button trigger modal -->
-    <div class="btn btn-sm btn-secondary my-3" data-bs-toggle="modal" data-bs-target="#editScheduleWorkShiftModal">
+    <div class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#editScheduleWorkShiftModal">
         <i class="fa-solid fa-pen-to-square"></i> Edytuj zmiany
     </div>
 
@@ -33,10 +33,10 @@
                                                             </div>
                                                             @if ($workShifts[$week->id][$workShift->id]['is_work_day'])
                                                                 <div class="d-flex align-items-center mx-2">
-                                                                    <div class="">
+                                                                    <div>
                                                                         <input type="time" name="" wire:model="workShifts.{{$week->id}}.{{$workShift->id}}.start_time" value="{{$workShift->start_time}}" id="work-shift-start-{{$workShift->id}}" class="form-control form-control-sm">
                                                                     </div>
-                                                                    <div class="">
+                                                                    <div>
                                                                         <input type="time" name="" wire:model="workShifts.{{$week->id}}.{{$workShift->id}}.end_time" value="{{$workShift->end_time}}" id="work-shift-end-{{$workShift->id}}" class="form-control form-control-sm">
                                                                     </div>
                                                                 </div>

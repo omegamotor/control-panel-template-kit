@@ -30,6 +30,17 @@ class ScheduleView extends Component
     public $scheduleSelect;
     public $selectedSchedule; // Właściwość do przechowywania załadowanego modelu
     public $currentWeek = 1;
+    public $currentDay = 1;
+
+    public $weekDays = [
+        'Poniedziałek',
+        'Wtorek',
+        'Środa',
+        'Czwartek',
+        'Piatek',
+        'Sobota',
+        'Niedziela',
+    ];
 
     public function updatedScheduleSelect($value){
         $this->loadSelectedSchedule();
@@ -43,6 +54,7 @@ class ScheduleView extends Component
 
         // Ustawienie bieżącej daty
         $now = Carbon::now();
+        $this->currentDay = ($now->dayOfWeek + 6) % 7;
 
         // Obliczenie różnicy w tygodniach
         $weeksDifference = $startDate->diffInWeeks($now);

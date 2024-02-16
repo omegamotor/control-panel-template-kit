@@ -536,6 +536,18 @@ $tangerine: #f86a6c;
     font-size: 1.2rem;
 }
 
+@media screen and (max-width:550px) {
+    .day{
+      font-size: 1rem;
+  }
+}
+
+.day-today-table-calendar{
+    background: #E0F2FE !important;
+    font-weight: bold !important;
+    color: #0EA5E9 !important;
+}
+
 .day.night-shift {
     background: #6691ff8c;
 }
@@ -610,9 +622,27 @@ $tangerine: #f86a6c;
 
 .calendar-current-day-day-title{
     text-align: center;
-}
-
-.calendar-current-day-day-title{
     font-weight: bold;
 }
 
+.week-table > table > tbody > tr{
+    height: 75px;
+}
+
+.week-table{
+    width: 280px;
+
+    &__th{
+        color:#4e73df !important;
+        background: aliceblue !important;
+    }
+
+    &__th-active{
+        background-color:cornflowerblue !important;
+        color:white !important;
+    }
+}
+
+.schedule-weeks-table-div{
+    max-width: calc(100% - 525px);
+}

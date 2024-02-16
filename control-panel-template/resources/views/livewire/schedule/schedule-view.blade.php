@@ -21,8 +21,17 @@
                     @endforeach
                 </select>
             </div>
+            @if ($selectedSchedule)
+                <div>
+                    Tydzień {{$currentWeek}} / {{$selectedSchedule->cycle_length}}
+                    <p>Plan zaczął się: {{$selectedSchedule->start_date}}</p>
+                </div>
+            @endif
             <div class="d-flex flex-wrap gap-1">
                 @livewire('schedule.forms.create-schedule-modal')
+                @if ($selectedSchedule)
+                    @livewire('schedule.work-shift.forms.edit-schedule-work-shift-view', ['selectedSchedule' => $selectedSchedule])
+                @endif
             </div>
         </div>
     </div>
@@ -34,52 +43,56 @@
         </div>
         <div class="card-body">
             @if($selectedSchedule)
-                <div class="">
-                    Tydzień {{$currentWeek}} / {{$selectedSchedule->cycle_length}}
-                    <p>Plan zaczął się: {{$selectedSchedule->start_date}}</p>
-                </div>
-
-                @livewire('schedule.work-shift.forms.edit-schedule-work-shift-view', ['selectedSchedule' => $selectedSchedule])
                 <div class="d-flex flex-wrap justify-content-evenly">
-                    <div class="">
+                    <div>
                         <livewire:schedule.calendar-view  :selectedSchedule="$selectedSchedule" :currentWeekNr="$currentWeek" />
                     </div>
-                    <div class="">
+                    <div class="d-flex flex-wrap gap-3 justify-content-evenly schedule-weeks-table-div">
                         @if($selectedSchedule->weeks)
                             @foreach ($selectedSchedule->weeks as $week)
-                                <h2 class="mb-3" style="font-size: 1.5rem;">
-                                    Tydzień nr {{$week->week_number}}
-                                    @if ($week->week_number == $currentWeek)
-                                    - Aktualny tydzień
-                                    @endif
-                                </h2>
-                                <table class="table table-bordered mb-3" id="dataTable" width="100%" cellspacing="0">
-                                    <thead class="@if ($week->week_number == $currentWeek) table-primary @else table-secondary @endif">
-                                        <tr>
-                                            <th>Poniedziałek</th>
-                                            <th>Wtorek</th>
-                                            <th>Środa</th>
-                                            <th>Czwartek</th>
-                                            <th>Piątek</th>
-                                            <th>Sobota</th>
-                                            <th>Niedziela</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
+                                <div class="week-table">
+                                    <table class="table table-bordered mb-3" id="dataTable" width="100%" cellspacing="0">
+                                        <thead >
+                                            <tr>
+                                                <th colspan="2" class="
+                                                @if ($week->week_number == $currentWeek)
+                                                    week-table__th-active
+                                                @else
+                                                    week-table__th
+                                                @endif ">
+                                                    Tydzień nr {{$week->week_number}}@if ($week->week_number == $currentWeek)- Aktualny tydzień @endif
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             @foreach ($week->workShifts as $workShift)
-                                                <td>
-                                                    @if ($workShift->is_work_day)
-                                                        {{$workShift->getStartTime()}} - {{$workShift->getEndTime()}}
-                                                    @else
-                                                        Wolne
-                                                    @endif
-                                                </td>
-                                            @endforeach
-                                        </tr>
+                                                <tr>
+                                                    <td class="@if($week->week_number == $currentWeek && $currentDay == $loop->index) day-today-table-calendar  @endif">
+                                                        {{$weekDays[$loop->index]}}
+                                                    </td>
+                                                    <td class="@if($week->week_number == $currentWeek && $currentDay == $loop->index) day-today-table-calendar  @endif">
+                                                        <div class="calendar-current-day-day-title">
+                                                            @if ($workShift->is_work_day)
+                                                                @if(intval($workShift->getStartTime()) > 7)
+                                                                    <i class="fa-solid fa-sun text-warning"></i> Dniówka
+                                                                @else
+                                                                    <i class="fa-solid fa-moon text-secondary"></i> Nocka
+                                                                @endif
 
-                                    </tbody>
-                                </table>
+                                                            @else
+                                                                <i class="fa-solid fa-house text-success"></i> Wolne
+                                                            @endif
+                                                        </div>
+                                                        <div class="calendar-current-day-day-title">
+                                                            @if ($workShift->is_work_day) {{$workShift->getStartTime()}} - {{$workShift->getEndTime()}} @endif
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             @endforeach
                         @endif
                     </div>

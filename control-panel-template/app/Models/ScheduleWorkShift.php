@@ -20,11 +20,11 @@ class ScheduleWorkShift extends Model
     ];
 
     public function getStartTime(){
-        return Carbon::parse($this->start_time)->format('G:i');;
+        return Carbon::parse($this->start_time)->format('G:i');
     }
 
     public function getEndTime(){
-        return Carbon::parse($this->end_time)->format('G:i');;
+        return Carbon::parse($this->end_time)->format('G:i');
     }
 
     // RELATIONSHIPS

@@ -16,45 +16,36 @@
        </select>
     </div>
 
-    <div class="">
-        {{-- <h3>Dzisiaj jest: {{$today['date']}}</h3> --}}
+    <div class="shadow pb-2 mt-3 calendar-current-day">
+        <div class="calendar-current-day-title-month">
+            {{$selectDay['month']}}
+        </div>
+        <div class="calendar-current-day-day-nr">
+            {{$selectDay['dayNr']}}
+        </div>
+        <div class="calendar-current-day-day-title">
 
-        <div class="shadow p-2 mt-3 calendar-current-day">
-            {{-- <h4>Wybrany dzień: {{$selectDay['day']}}</h4>
-            <p>Status:</p>
-            <p>Od:</p>
-            <p>Do:</p> --}}
-            <div class="calendar-current-day-title-month">
-                {{$selectDay['month']}}
-            </div>
-            <div class="calendar-current-day-day-nr">
-                {{$selectDay['dayNr']}}
+            <div class="calendar-current-day-day-title">
+                {{$selectDay['dayString']}}
             </div>
             <div class="calendar-current-day-day-title">
-
-                <div class="calendar-current-day-day-title">
-                    {{$selectDay['dayString']}}
-                </div>
-                <div class="calendar-current-day-day-title">
-                    @if ($selectDay['isWorkDay'])
-                        @if($selectDay['workShift'] == 'day')
-                            <i class="fa-solid fa-sun text-warning"></i> Dniówka
-                        @elseif($selectDay['workShift'] == 'night')
-                        <i class="fa-solid fa-moon text-secondary"></i> Nocka
-                        @endif
-                    @else
-                        <i class="fa-solid fa-house text-success"></i> Wolne
+                @if ($selectDay['isWorkDay'])
+                    @if($selectDay['workShift'] == 'day')
+                        <i class="fa-solid fa-sun text-warning"></i> Dniówka
+                    @elseif($selectDay['workShift'] == 'night')
+                    <i class="fa-solid fa-moon text-secondary"></i> Nocka
                     @endif
-                </div>
-                <div class="calendar-current-day-day-title">
-                    @if ($selectDay['isWorkDay']) {{$selectDay['workHour']}} @endif
-                </div>
-
+                @else
+                    <i class="fa-solid fa-house text-success"></i> Wolne
+                @endif
+            </div>
+            <div class="calendar-current-day-day-title">
+                @if ($selectDay['isWorkDay']) {{$selectDay['workHour']}} @endif
             </div>
         </div>
     </div>
 
-    <div class="calendar" wire:loading.remove>
+    <div class="calendar">
         <div class="month-year">
             <span class="month">{{$monthStr}}</span>
             <span class="year">{{$year}}</span>
@@ -92,7 +83,7 @@
             @endforeach
         </div>
     </div>
-    <div class="calendar" style="width: 410px; height:295px; padding:16px; margin:16px" wire:loading>
+    {{-- <div class="calendar" style="height:295px;min-width:324px; padding:16px" wire:loading wire:target="newDateSelected" >
         @livewire('components.loading')
-    </div>
+    </div> --}}
 </div>
