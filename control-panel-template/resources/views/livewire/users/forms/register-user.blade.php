@@ -1,7 +1,7 @@
 <div style="margin: auto; min-height: 100vh; display: flex;" >
     <div class="shadow p-4 rounded m-auto" style="min-width:390px">
         <div class="bg-body-tertiary text-center p-2 border mb-3">
-            <img src="{{url('images/logo-ControlPanel.png')}}" alt="" class="">
+            <img src="{{url('images/logo-ControlPanel.png')}}" alt="">
         </div>
         <form wire:submit.prevent="register">
             <div class="mb-3">
