@@ -51,11 +51,11 @@ class EditUserModal extends Component
         $this->user->save();
 
         $message = "Użytkownik zosał zaktualizowany!";
+        $type = "SUCCESS";
 
-        session()->flash('alert-type', 'SUCCESS');
+        session()->flash('alert-type', $type);
         session()->flash('message', $message);
 
-        // $this->dispatch('refresh-user-list');
         return redirect()->route('users.list');
     }
 
