@@ -109,7 +109,7 @@
 
 
                                 <p class="time @if( !$nextMessageFromAuthor && !$loop->last) d-none @endif"> {{ $formattedDate }}</p>
-                                <div class="" style="clear:both"></div>
+                                <div style="clear:both"></div>
                             @else
                                 @if ($previousMessageAuthorId && $previousMessageAuthorId != $activeUser->id)
                                     <div class="message text-only">
@@ -137,7 +137,7 @@
                                     }
                                 @endphp
                                 <p class="time response-time @if($nextMessageFromAuthor && !$loop->last) d-none @endif"> {{ $formattedDate }}</p>
-                                <div class="" style="clear:both"></div>
+                                <div style="clear:both"></div>
                             @endif
 
                             @php $previousMessageAuthorId = $message->author_id; @endphp
