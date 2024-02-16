@@ -63,6 +63,9 @@
   cursor: pointer;
   font-weight: 300;
   font-size: 1.2rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 @media screen and (max-width: 550px) {
