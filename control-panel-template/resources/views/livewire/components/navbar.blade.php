@@ -85,10 +85,12 @@
             <i class="fa-solid fa-users"></i>
             <span>Użytkownicy</span>
         </a>
+    </li>
 
-        <a class="nav-link" href="{{route('calendar.list')}}">
+    <li class="nav-item @if(Route::is('schedule.view')) active @endif">
+        <a class="nav-link" href="{{route('schedule.view')}}">
             <i class="fa-regular fa-calendar"></i>
-            <span>Kalendarz Pracy</span>
+            <span>Harmonogram Pracy</span>
         </a>
     </li>
 

@@ -7,6 +7,8 @@ use App\Livewire\Config\Pusher\ConfigPusherList;
 use App\Livewire\Demo\Dashboard;
 use App\Livewire\Files\FilesList;
 use App\Livewire\Notifications\NotificationsList;
+use App\Livewire\Schedule\ScheduleView;
+use App\Livewire\Schedule\WorkShift\Forms\EditScheduleWorkShiftView;
 use App\Livewire\Tests\PdfTestTemplate;
 use App\Livewire\Users\Forms\LoginUser;
 use App\Livewire\Users\Forms\RegisterUser;
@@ -54,7 +56,7 @@ Route::middleware([
     Route::get('/użytkownicy/lista', UsersList::class)->name('users.list');
 
     // Calendar
-    Route::get('/kalendarz-pracy', CalendarShow::class)->name('calendar.list');
+    Route::get('/harmonogram-pracy', ScheduleView::class)->name('schedule.view');
 
     // Files
     Route::get('/pliki/lista', FilesList::class)->name('files.list');
