@@ -154,7 +154,7 @@
 }
 
 .week-table {
-  width: 280px;
+  width: 100%;
 }
 .week-table__th {
   color: #4e73df !important;
@@ -166,5 +166,14 @@
 }
 
 .schedule-weeks-table-div {
-  max-width: calc(100% - 525px);
+  max-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .schedule-weeks-table-div {
+    max-width: calc(100% - 525px);
+  }
+  .week-table {
+    width: 280px;
+  }
 }/*# sourceMappingURL=calendar.css.map */
