@@ -84,6 +84,8 @@ Ex.
 
 At a later stage, press Edit Changes and set the schedule for each day of the week. The system will recalculate when what week occurs and tell you what work plan is today. If you start work before 8 o'clock (for illustration) it will say that it is a night shift, otherwise it will be a day shift.
 
+You can also download PDF with schedule.
+
 # Project Future Modules And Updates Current Modules
 ## Ideas For Project Future Modules
 - SEO
