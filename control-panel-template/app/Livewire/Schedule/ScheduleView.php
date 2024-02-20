@@ -6,7 +6,10 @@ use App\Models\Schedule;
 use App\Traits\FilterTrait;
 use Carbon\Carbon;
 use Livewire\Component;
-use Illuminate\Support\Collection;
+
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ScheduleView extends Component
 {
@@ -27,7 +30,7 @@ class ScheduleView extends Component
     // --------------------------------------
 
     public $schedules;
-    public $scheduleSelect;
+    public $scheduleSelect; // ID
     public $selectedSchedule; // Właściwość do przechowywania załadowanego modelu
     public $currentWeek = 1;
     public $currentDay = 1;
@@ -61,6 +64,34 @@ class ScheduleView extends Component
         $this->currentWeek = $weeksDifference + 1;
 
         $this->dispatch('schedule-selected-change', $this->selectedSchedule, $this->currentWeek);
+    }
+
+    public function export($file){
+        // dd($this->selectedSchedule);
+        // $scheduleExport = new ScheduleExport($this->selectedSchedule);
+        $fileName = 'Harmonogram Pracy ' . $this->selectedSchedule->title . ' - ' . date('d-m-Y') . '.' . $file;
+        // $data = ['schedule' => $scheduleExport];
+        $data = [
+            'schedule' => $this->selectedSchedule,
+            'weekDays' => $this->weekDays,
+
+        ];
+
+        abort_if(!in_array($file,['csv', 'xlsx', 'pdf']), Response::HTTP_NOT_FOUND);
+
+        if($file == 'pdf'){
+            $pdf = PDF::loadView('pdf/schedule-pdf', $data);
+            $pdf->output();
+            $domPdf = $pdf->getDomPDF();
+            $canvas = $domPdf->get_canvas();
+            $canvas->page_text(10, 10, "Strona {PAGE_NUM} z {PAGE_COUNT}", null, 10, [0, 0, 0]);
+            return response()->streamDownload(function() use ($pdf){
+                echo $pdf->stream();
+            }, $fileName);
+
+        }else if($file == 'xlsx'){
+            // return Excel::download($scheduleExport, $fileName);
+        }
     }
 
     public function render(){

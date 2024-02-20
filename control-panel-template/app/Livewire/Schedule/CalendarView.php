@@ -106,6 +106,7 @@ class CalendarView extends Component
     }
 
     public function setCalendarData($currentWeekNr, $selectedSchedule){
+        // $currentWeekNr +=12;
         // Dzisiejsza data
         $this->today['date'] = explode('T', Carbon::today()->toDateTimeLocalString())[0];
 
@@ -116,8 +117,25 @@ class CalendarView extends Component
         // Sprawdzenie jaki jest aktualnie tydzień
         $schedule =  $selectedSchedule;
 
+
+        $scheduleWeeksCount = $schedule->weeks()->count();
+
+
+        // Jeśli to aktualny tydzień
+        if($currentWeekNr > $scheduleWeeksCount){
+            $p = intdiv($currentWeekNr, $scheduleWeeksCount);
+            $b = $currentWeekNr / $scheduleWeeksCount;
+            $h = $b - $p;
+            if($b - $p == 0){
+                $h = 1;
+            }
+            $currentWeekNr = $h * $scheduleWeeksCount;
+        }
+
+
         // Wyciągnij aktualny tydzień
         $currentWeek = $schedule->weeks()->where('week_number', $currentWeekNr)->first();
+
 
         // Wyciągnięcie wszystkuch dni aktualnego tygodnia
         $curentWorkShifts = $currentWeek->workShifts;
@@ -149,7 +167,7 @@ class CalendarView extends Component
         }
 
 
-        $scheduleWeeksCount = $schedule->weeks()->count();
+
         $i = 0;
 
         // Dla każdego dnia aktualnego miesiąca

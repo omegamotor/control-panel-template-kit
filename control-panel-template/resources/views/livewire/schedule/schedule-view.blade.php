@@ -31,6 +31,20 @@
                 @livewire('schedule.forms.create-schedule-modal')
                 @if ($selectedSchedule)
                     @livewire('schedule.work-shift.forms.edit-schedule-work-shift-view', ['selectedSchedule' => $selectedSchedule])
+
+                    <div class="btn btn-sm btn-secondary btn-icon-split" wire:click="export('pdf')" wire:loading.attr='disabled'>
+                        <span class="icon">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </span>
+                        <span class="text">PDF</span>
+                    </div>
+
+                    {{-- <div class="btn btn-sm btn-success btn-icon-split" wire:click="export('xlsx')" wire:loading.attr='disabled'>
+                        <span class="icon">
+                            <i class="fa-solid fa-file-excel"></i>
+                        </span>
+                        <span class="text">XLSX</span>
+                    </div> --}}
                 @endif
             </div>
         </div>

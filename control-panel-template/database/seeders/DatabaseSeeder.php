@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         if (app()->environment('local')) {
             $this->call([
                 // Dev
-                // UserSeeder::class,
+                UserSeeder::class,
             ]);
         }else if (app()->environment('production')){
             $this->call([
@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             // Dev or Prod
             AppConfigurationEmailSeeder::class,
             AppConfigurationPusherSeeder::class,
+            ScheduleDHLSeeder::class,
         ]);
 
     }
