@@ -63,14 +63,23 @@ class ScheduleView extends Component
         $weeksDifference = $startDate->diffInWeeks($now);
         $this->currentWeek = $weeksDifference + 1;
 
+        $scheduleWeeksCount = $this->selectedSchedule->weeks()->count();
+        if($this->currentWeek > $scheduleWeeksCount){
+            $p = intdiv($this->currentWeek, $scheduleWeeksCount);
+            $b = $this->currentWeek / $scheduleWeeksCount;
+            $h = $b - $p;
+            if($b - $p == 0){
+                $h = 1;
+            }
+            // Bez round wynik 1.0 nie był równy 1.0 ani 1
+            $this->currentWeek = round($h * $scheduleWeeksCount);
+        }
+
         $this->dispatch('schedule-selected-change', $this->selectedSchedule, $this->currentWeek);
     }
 
     public function export($file){
-        // dd($this->selectedSchedule);
-        // $scheduleExport = new ScheduleExport($this->selectedSchedule);
         $fileName = 'Harmonogram Pracy ' . $this->selectedSchedule->title . ' - ' . date('d-m-Y') . '.' . $file;
-        // $data = ['schedule' => $scheduleExport];
         $data = [
             'schedule' => $this->selectedSchedule,
             'weekDays' => $this->weekDays,

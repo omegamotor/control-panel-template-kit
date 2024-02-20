@@ -136,7 +136,6 @@ class CalendarView extends Component
         // Wyciągnij aktualny tydzień
         $currentWeek = $schedule->weeks()->where('week_number', $currentWeekNr)->first();
 
-
         // Wyciągnięcie wszystkuch dni aktualnego tygodnia
         $curentWorkShifts = $currentWeek->workShifts;
 
@@ -165,8 +164,6 @@ class CalendarView extends Component
             }
             $i++;
         }
-
-
 
         $i = 0;
 
